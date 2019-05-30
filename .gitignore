@@ -1,5 +1,34 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
+# ***************************************************************#
+# recommended git ignore rules for Windowna operating system
+#****************************************************************#
+
+# Windows thumbnail cache files
+Thumbs.db
+ehthumbs.db
+ehthumbs_vista.db
+
+# Dump file
+*.stackdump
+
+# Folder config file
+[Dd]esktop.ini
+
+# Recycle Bin used on file shares
+$RECYCLE.BIN/
+
+# Windows Installer files
+*.cab
+*.msi
+*.msix
+*.msm
+*.msp
+
+# Windows shortcuts
+*.lnk
+#****************************************************************#
+
 # compiled output
 /dist
 /tmp
@@ -8,7 +37,9 @@
 # dependencies
 /node_modules
 
-# IDEs and editors
+#****************************************************************#
+# IDEs and editors                                               #
+#****************************************************************#
 /.idea
 .project
 .classpath
@@ -40,3 +71,4 @@ testem.log
 # System Files
 .DS_Store
 Thumbs.db
+#****************************************************************#

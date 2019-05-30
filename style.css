@@ -1,0 +1,21 @@
+html {
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    font-family: 'Dosis', sans-serif;
+    line-height: 1.6;
+    color: #666;
+    background: #F6F6F6;
+}
+
+body {
+    widows: auto;
+}
+
+.row {
+    width: auto;
+    margin-left: -.75rem;
+    margin-right: -.75rem;
+    margin-top: 0;
+    max-width: none;
+    margin-bottom: 0;
+}
