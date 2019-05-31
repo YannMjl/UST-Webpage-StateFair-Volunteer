@@ -100,45 +100,6 @@ $(document).ready(
 
                 });
 
-                // $.each(data, function (index, value) {
-
-                //     // get URL - Salesforce UST event management tool 
-                //     var _eventUrl = value.eventUrl;
-
-                //     // get Event details for sign up
-                //     var _startDate = new Date(value.start),
-                //         _endDate = new Date(value.end);
-                //     var _datetext = _startDate.toDateString();
-
-                //     var _startTime = _startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                //     _endTime = _endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
-
-                //     // $('.showSignUp').append(
-
-                //     //     '<div class="row">' +
-
-                //     //     '<div class="left">' +
-                //     //     '<p style="display: inline; float: left;">' +
-                //     //     '<strong>' + _datetext + '</strong><br>' +
-                //     //     '<p class="time">' + _startTime + ' - ' + _endTime + '</p>' +
-                //     //     '</p>' +
-                //     //     '</div>' +
-
-                //     //     '<div class="right">' +
-                //     //     '<p style="margin: 0px 0px 0px 15px!Important; display: inline;">' +
-                //     //     '<a href="' + _eventUrl + '" target="_blank" style="font-weight: bold; color: #9e28b5;">' +
-                //     //     '<button class="button" style="vertical-align:middle"><span>Register </span></button>' +
-                //     //     '</a>' +
-                //     //     '</p>' +
-                //     //     '</div>' +
-
-                //     //     '</div>'
-
-                //     // );
-
-                // });
-
             }
 
         });
