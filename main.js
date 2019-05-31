@@ -36,8 +36,6 @@ function showEvent() {
 
         success: function (data){
 
-            console.log('show data: ', data);
-
             $.each(data, function (index, value) {
 
                 // get URL - Salesforce UST event management tool 
@@ -50,9 +48,6 @@ function showEvent() {
 
                 var _startTime = _startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
                 _endTime = _endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                
-                console.log('Start Time: ', _startTime);
-                console.log('End Time: ', _endTime);
                 
 
                 $('.showSignUp').append(
