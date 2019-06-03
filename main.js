@@ -70,11 +70,13 @@ $(document).ready(
                         // get URL - Salesforce UST event management tool 
                         var _eventUrl = value.eventUrl;
 
-                        var startDate = new Date(value.start);
-                        var _dateGMT = startDate.toGMTString();
-                        var _dateTime = startDate.toTimeString();
+                        var startDate = new Date(value.start).toLocaleString("en-US", {
+                            timeZone: "UTC"
+                        });
+                        // var _dateGMT = startDate.toGMTString();
+                        // var _dateTime = startDate.toTimeString();
 
-                        console.log(_dateTime);
+                        console.log(startDate);
                         
 
                         // get Event details for sign up
@@ -82,8 +84,16 @@ $(document).ready(
                             _endDate = new Date(value.end);
                         var _datetext = _startDate.toDateString();
 
-                        var _startTime = _startDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-                        _endTime = _endDate.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+                        var _startTime = _startDate.toLocaleTimeString([], { 
+                            hour: '2-digit', 
+                            minute: '2-digit',
+                            timeZone: "UTC"
+                        });
+                        var _endTime = _endDate.toLocaleTimeString([], { 
+                            hour: '2-digit', 
+                            minute: '2-digit',
+                            timeZone: "UTC"
+                        });
 
                         if (_datetext == _date) {
 
