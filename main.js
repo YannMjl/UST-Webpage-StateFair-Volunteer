@@ -57,6 +57,15 @@ $(document).ready(
                 var _nonDuplicateDates = $.unique(_eventdates);
                 
                 _nonDuplicateDates.forEach(function (_date){
+
+                    _eventDate = new Date(_date).toLocaleString('en-US', 
+                        {
+                            day: 'numeric',
+                            weekday: 'long',
+                            month: 'long',
+                            year: 'numeric'    
+                        }
+                    );                
                     
                     $('.showSignUp').append(
 
@@ -64,7 +73,7 @@ $(document).ready(
 
                         '<div class="left">' +
                         '<p style="display: inline; float: left;">' +
-                        '<strong>' + _date + '</strong><br>' +
+                        '<strong>' + _eventDate + '</strong><br>' +
                         '</p>' +
                         '</div>' +
 
@@ -82,16 +91,20 @@ $(document).ready(
                             _endDate = new Date(value.end);
                         var _datetext = _startDate.toDateString();
 
-                        var _startTime = _startDate.toLocaleTimeString([], { 
-                            hour: '2-digit', 
-                            minute: '2-digit',
-                            timeZone: "UTC"
-                        });
-                        var _endTime = _endDate.toLocaleTimeString([], { 
-                            hour: '2-digit', 
-                            minute: '2-digit',
-                            timeZone: "UTC"
-                        });
+                        var _startTime = _startDate.toLocaleTimeString([], 
+                            { 
+                                hour: '2-digit', 
+                                minute: '2-digit',
+                                timeZone: "UTC"
+                            }
+                        );
+                        var _endTime = _endDate.toLocaleTimeString([], 
+                            { 
+                                hour: '2-digit', 
+                                minute: '2-digit',
+                                timeZone: "UTC"
+                            }  
+                        );
 
                         if (_datetext == _date) {
 
@@ -101,8 +114,10 @@ $(document).ready(
 
                                 '<div class="left">' +
                                 '<p style="display: inline; float: left;">' +
-                                '<p><b>' + value.instanceDesc + '</b></p><br>' +
-                                '<p class="time">' + _startTime + ' - ' + _endTime + '</p>' +
+                                    '<p class="time">' +
+                                        '<b>' + value.instanceDesc + '</b><br>' +
+                                        _startTime + ' - ' + _endTime + 
+                                    '</p>' +
                                 '</p>' +
                                 '</div>' +
 
