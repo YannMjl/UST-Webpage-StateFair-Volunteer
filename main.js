@@ -30,7 +30,11 @@ $(document).ready(
 
             success: function (data) {
 
+                console.log('Data: ', data);
+                
+
                 var _eventdates = new Array();
+                var _eventDiscription = new Array();
 
                 $.each(data, function (index, value){
 
@@ -38,6 +42,9 @@ $(document).ready(
                     var _startDate = new Date(value.start);
                     var _datetext = _startDate.toDateString();
                     _eventdates.push(_datetext);
+
+                    var _instanceDesc = value.instanceDesc;
+                    _eventDiscription.push(_instanceDesc);
                 });
 
                 var _nonDuplicateDates = $.unique(_eventdates);
@@ -63,6 +70,13 @@ $(document).ready(
                         // get URL - Salesforce UST event management tool 
                         var _eventUrl = value.eventUrl;
 
+                        var startDate = new Date(value.start);
+                        var _dateGMT = startDate.toGMTString();
+                        var _dateTime = startDate.toTimeString();
+
+                        console.log(_dateTime);
+                        
+
                         // get Event details for sign up
                         var _startDate = new Date(value.start),
                             _endDate = new Date(value.end);
@@ -79,6 +93,7 @@ $(document).ready(
 
                                 '<div class="left">' +
                                 '<p style="display: inline; float: left;">' +
+                                '<p><b>' + value.instanceDesc + '</b></p><br>' +
                                 '<p class="time">' + _startTime + ' - ' + _endTime + '</p>' +
                                 '</p>' +
                                 '</div>' +
