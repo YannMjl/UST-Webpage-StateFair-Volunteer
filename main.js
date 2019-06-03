@@ -30,7 +30,14 @@ $(document).ready(
 
             success: function (data) {
 
-                console.log('Data: ', data);
+                _sortedData = data.sort(function(a, b) {
+                    // Turn your strings into dates, and then subtract them
+                    // to get a value that is either negative, positive, or zero. 
+                    // * - 1 : get a reverse sort
+                    return (new Date(b.start) - new Date(a.start)) * - 1; 
+                });
+
+                console.log('Soted Data: ', _sortedData);
                 
 
                 var _eventdates = new Array();
@@ -50,7 +57,7 @@ $(document).ready(
                 var _nonDuplicateDates = $.unique(_eventdates);
                 
                 _nonDuplicateDates.forEach(function (_date){
-                    console.log(_date);
+                    
                     $('.showSignUp').append(
 
                         '<div class="row">' +
@@ -69,15 +76,6 @@ $(document).ready(
 
                         // get URL - Salesforce UST event management tool 
                         var _eventUrl = value.eventUrl;
-
-                        var startDate = new Date(value.start).toLocaleString("en-US", {
-                            timeZone: "UTC"
-                        });
-                        // var _dateGMT = startDate.toGMTString();
-                        // var _dateTime = startDate.toTimeString();
-
-                        console.log(startDate);
-                        
 
                         // get Event details for sign up
                         var _startDate = new Date(value.start),
