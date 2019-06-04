@@ -3,23 +3,13 @@ $(document).ready(
 
     function showEvent() {
 
-        var eventId = 'a3s56000000Mf6n',
-            viewStart = '2019-5-3+00:00:00',
-            viewEnd = '2019-12-3+00:00:00',
-            state_fair_2019_feed = 'https://staging-stthomas.cs42.force.com/applicantportal/services/apexrest/usteventfeed?eventId=a3s56000000Mf6n&feedType=eventList&viewStart=2019-6-3+00:00:00&viewEnd=2019-9-3+24:59:59';
+        var state_fair_2019_feed = 'https://staging-stthomas.cs42.force.com/applicantportal/services/apexrest/usteventfeed?eventId=a3s56000000Mf6n&feedType=eventList&viewStart=2019-6-3+00:00:00&viewEnd=2019-9-3+24:59:59';
 
         $.ajax({
 
             type: "GET",
 
             url: state_fair_2019_feed,
-
-            data: {
-                'feedType': 'eventList',
-                'eventId': eventId,
-                'viewStart': viewStart.replace("+", " "),
-                'viewEnd': viewEnd.replace("+", " ")
-            },
 
             dataType: "jsonP", // use JsonP for datatype if API does not have CORS set
 
@@ -30,32 +20,23 @@ $(document).ready(
 
             success: function (data) {
 
-                _sortedData = data.sort(function(a, b) {
-                    // Turn your strings into dates, and then subtract them
-                    // to get a value that is either negative, positive, or zero. 
+                // sort data by date
+                _sortedData = data.sort(function(a, b) { 
                     // * - 1 : get a reverse sort
                     return (new Date(b.start) - new Date(a.start)) * - 1; 
                 });
-
-                console.log('Soted Data: ', _sortedData);
                 
-
+                // get event dates sequences
                 var _eventdates = new Array();
-                var _eventDiscription = new Array();
-
-                $.each(data, function (index, value){
-
-                    // get Event details for sign up
+                $.each(_sortedData, function (index, value) {
+                    // get Event dates for sign up
                     var _startDate = new Date(value.start);
                     var _datetext = _startDate.toDateString();
                     _eventdates.push(_datetext);
-
-                    var _instanceDesc = value.instanceDesc;
-                    _eventDiscription.push(_instanceDesc);
                 });
 
+                // removed duplicates from eventdates array
                 var _nonDuplicateDates = $.unique(_eventdates);
-                
                 _nonDuplicateDates.forEach(function (_date){
 
                     _eventDate = new Date(_date).toLocaleString('en-US', 
@@ -66,31 +47,28 @@ $(document).ready(
                             year: 'numeric'    
                         }
                     );                
-                    
+                    // add event dates to HTML 
                     $('.showSignUp').append(
-
                         '<div class="row">' +
-
-                        '<div class="left">' +
-                        '<p style="display: inline; float: left;">' +
-                        '<strong>' + _eventDate + '</strong><br>' +
-                        '</p>' +
-                        '</div>' +
-
+                            '<div class="left">' +
+                                '<p style="display: inline; float: left;">' +
+                                    '<strong>' + _eventDate + '</strong><br>' +
+                                '</p>' +
+                            '</div>' +
                         '</div>'
-
                     );
 
-                    $.each(data, function (index, value) {
+                    $.each(_sortedData, function (index, value) {
 
                         // get URL - Salesforce UST event management tool 
                         var _eventUrl = value.eventUrl;
 
-                        // get Event details for sign up
+                        // get start and end dates for sign up 
                         var _startDate = new Date(value.start),
                             _endDate = new Date(value.end);
                         var _datetext = _startDate.toDateString();
 
+                        // get start and end time 
                         var _startTime = _startDate.toLocaleTimeString([], 
                             { 
                                 hour: '2-digit', 
@@ -106,41 +84,40 @@ $(document).ready(
                             }  
                         );
 
+                        // add times and event sponsors to HTML
                         if (_datetext == _date) {
 
                             $('.showSignUp').append(
-
                                 '<div class="row">' +
+                                    '<div class="left">' +
+                                        '<p style="display: inline; float: left;">' +
+                                            '<p class="time">' +
+                                                '<b>' + value.instanceDesc + '</b><br>' +
+                                                _startTime + ' - ' + _endTime + 
+                                            '</p>' +
+                                        '</p>' +
+                                    '</div>' +
 
-                                '<div class="left">' +
-                                '<p style="display: inline; float: left;">' +
-                                    '<p class="time">' +
-                                        '<b>' + value.instanceDesc + '</b><br>' +
-                                        _startTime + ' - ' + _endTime + 
-                                    '</p>' +
-                                '</p>' +
-                                '</div>' +
-
-                                '<div class="right">' +
-                                '<p style="margin: 0px 0px 0px 15px!Important; display: inline;">' +
-                                '<a href="' + _eventUrl + '" target="_blank" style="font-weight: bold; color: #9e28b5;">' +
-                                '<button class="button" style="vertical-align:middle"><span>Register </span></button>' +
-                                '</a>' +
-                                '</p>' +
-                                '</div>' +
-
+                                    '<div class="right">' +
+                                        '<p style="margin: 0px 0px 0px 15px!Important; display: inline;">' +
+                                            '<a href="' + _eventUrl + '" target="_blank" style="font-weight: bold; color: #9e28b5;">' +
+                                                '<button class="button" style="vertical-align:middle"><span>Register </span></button>' +
+                                            '</a>' +
+                                        '</p>' +
+                                    '</div>' +
                                 '</div>'
-
                             );
-                        }
 
-                    });
+                        } // end: if date statement
 
-                });
+                    }); // end of loop: through sorted date
 
-            }
+                }); // end of loop : noneduplicate date
 
-        });
-    }
+            } // end:  Ajax success API call
 
-);
+        }); // end: of Ajax call
+
+    } // end: showEvent function
+
+); // end: document.ready()
