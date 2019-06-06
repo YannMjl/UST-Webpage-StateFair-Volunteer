@@ -25,7 +25,10 @@ $(document).ready(
                     // * - 1 : get a reverse sort
                     return (new Date(b.start) - new Date(a.start)) * - 1; 
                 });
-                
+
+                // store event sponsor for each day
+                var _eventSponsor;
+
                 // get event dates sequences
                 var _eventdates = new Array();
                 $.each(_sortedData, function (index, value) {
@@ -46,17 +49,32 @@ $(document).ready(
                             month: 'long',
                             year: 'numeric'    
                         }
-                    );                
+                    );  
+
+                    $.each(_sortedData, function (index, value) {
+                        // get start and end dates for sign up 
+                        var _startDate = new Date(value.start),
+                            _endDate = new Date(value.end);
+                        var _datetext = _startDate.toDateString();
+
+                        // get Event sponsor
+                        if (_datetext == _date) {
+                            _eventSponsor = value.instanceDesc;
+                            console.log(_eventSponsor);
+                        }
+                    });
                     // add event dates to HTML 
                     $('.showSignUp').append(
                         '<div class="row">' +
                             '<div class="left">' +
                                 '<p style="display: inline; float: left;">' +
                                     '<strong>' + _eventDate + '</strong><br>' +
+                                    '<strong>' + _eventSponsor + '</strong><br>' +
                                 '</p>' +
                             '</div>' +
                         '</div>'
                     );
+
 
                     $.each(_sortedData, function (index, value) {
 
@@ -92,7 +110,6 @@ $(document).ready(
                                     '<div class="left">' +
                                         '<p style="display: inline; float: left;">' +
                                             '<p class="time">' +
-                                                '<b>' + value.instanceDesc + '</b><br>' +
                                                 _startTime + ' - ' + _endTime + 
                                             '</p>' +
                                         '</p>' +
