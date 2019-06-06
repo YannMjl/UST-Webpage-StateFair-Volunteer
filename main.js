@@ -51,25 +51,25 @@ $(document).ready(
                         }
                     );  
 
+                    // get event sponsor for each day
                     $.each(_sortedData, function (index, value) {
                         // get start and end dates for sign up 
-                        var _startDate = new Date(value.start),
-                            _endDate = new Date(value.end);
+                        var _startDate = new Date(value.start);
                         var _datetext = _startDate.toDateString();
 
                         // get Event sponsor
                         if (_datetext == _date) {
                             _eventSponsor = value.instanceDesc;
-                            console.log(_eventSponsor);
                         }
                     });
-                    // add event dates to HTML 
+
+                    // add event dates and sponsor to HTML 
                     $('.showSignUp').append(
                         '<div class="row">' +
                             '<div class="left">' +
                                 '<p style="display: inline; float: left;">' +
                                     '<strong>' + _eventDate + '</strong><br>' +
-                                    '<strong>' + _eventSponsor + '</strong><br>' +
+                                    '<strong>Sponsored by: ' + _eventSponsor + '</strong><br>' +
                                 '</p>' +
                             '</div>' +
                         '</div>'
